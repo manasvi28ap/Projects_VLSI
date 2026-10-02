@@ -1,0 +1,58 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 02.10.2026 16:06:28
+// Design Name: 
+// Module Name: int8_mac_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module int8_mac_tb();
+reg clk,rst;
+reg  signed [7:0] a_in,b_in;
+reg signed [31:0] p_sumin;
+wire signed [7:0] a_out,b_out;
+wire signed [31:0] p_sumout;
+int8_mac uut(
+.clk(clk),
+.rst(rst),
+.a_in(a_in),
+.b_in(b_in),
+.p_sumin(p_sumin),
+.a_out(a_out),
+.b_out(b_out),
+.p_sumout(p_sumout)
+);
+always @(posedge clk)
+begin
+#1;
+$display("Time=%0t | a_in=%0d | b_in=%0d | p_sumin=%0d | a_out= %0d | b_out = %0d | p_sumout= %0d",$time,a_in,b_in,p_sumin,a_out,b_out,p_sumout);
+end
+always #5 clk=~clk;
+initial begin
+clk=0;
+rst=1;
+a_in=0;b_in=0;p_sumin=0;
+#10;
+rst=0;
+a_in=2;b_in=3;p_sumin=10;#10;
+a_in=3;b_in=4;p_sumin=10;#10;
+a_in=4;b_in=5;p_sumin=10;#10;
+a_in=5;b_in=6;p_sumin=10;#10;
+
+$finish;
+end
+endmodule
