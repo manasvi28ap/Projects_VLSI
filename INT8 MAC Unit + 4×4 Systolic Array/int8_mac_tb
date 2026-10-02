@@ -1,0 +1,54 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 02.10.2026 16:06:28
+// Design Name: 
+// Module Name: int8_mac_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module int8_mac_tb();
+reg clk,rst;
+reg  signed [7:0] A, B;
+wire signed [31:0] acc;
+int8_mac uut(
+.clk(clk),
+.rst(rst),
+.A(A),
+.B(B),
+.acc(acc)
+);
+always @(posedge clk)
+begin
+#1;
+$display("Time=%0t | A=%0d | B=%0d | acc=%0d",$time,A,B,acc);
+end
+always #5 clk=~clk;
+initial begin
+clk=0;
+rst=1;
+A=0;
+B=0;
+#10;
+rst=0;
+A=2;B=3;
+#10;
+A=5;B=6;#10; 
+A=3;B=4;#10;
+
+$finish;
+end
+endmodule
